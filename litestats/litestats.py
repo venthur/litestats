@@ -7,8 +7,6 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 
-
-
 SCHEMA = """
 drop table if exists functions;
 create table functions(
@@ -95,7 +93,6 @@ def main(statsfile, outfile):
     conn = sqlite3.connect(outfile)
     conn.executescript(SCHEMA)
 
-
     stats = pstats.Stats(statsfile)
     for func, (cc, nc, tt, ct, callers) in stats.stats.items():
         insert_func(conn, func)
@@ -105,6 +102,7 @@ def main(statsfile, outfile):
             insert_func(conn, c)
             insert_call(conn, c, func)
     conn.commit()
+
 
 if __name__ == '__main__':
     statsfile = 'profile.profile3'
