@@ -37,4 +37,4 @@ setup(name='litestats',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python :: 3',
       ],
-)
+      )
