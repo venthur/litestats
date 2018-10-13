@@ -38,6 +38,22 @@ create table calls(
     foreign key(caller) references functions(id),
     foreign key(callee) references functions(id)
 );
+
+drop view if exists pstats;
+create view pstats as
+select
+    case
+        when s.nc = s.cc then s.nc
+        else s.nc || '/' || s.cc
+    end as ncalls,
+    s.tt as tottime,
+    s.tt / s.nc as ttpercall,
+    s.ct as cumtime,
+    s.ct / s.cc as ctpercall,
+    f.filename || ':' || f.line || '(' || f.function || ')' as 'filename:lineno(function)'
+from stats as s
+join functions as f
+on s.function = f.id
 """
 
 
