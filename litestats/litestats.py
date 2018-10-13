@@ -52,7 +52,8 @@ select
     s.tt / s.nc as ttpercall,
     s.ct as cumtime,
     s.ct / s.cc as ctpercall,
-    f.filename || ':' || f.line || '(' || f.function || ')' as 'filename:lineno(function)'
+    f.filename || ':' || f.line || '(' || f.function || ')'
+        as 'filename:lineno(function)'
 from stats as s
 join functions as f
 on s.function = f.id;
