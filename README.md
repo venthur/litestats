@@ -1,5 +1,36 @@
 # Litestats
 
+Profiling in Python has always been easy, however, analyzing the
+profiler's output not so much. After the profile has been created you
+can use Python's `pstats` module but it feels quite clumsy and not
+really empowering.
+
+Enter litestats! Litestats is a simple command line tool that takes the
+output of the Python profiler and transforms the data into a sqlite3
+database. You can now easily analyze the profiler output using `sqlite`
+on the command line, the `sqlitebrowser` for a graphical interface or
+use the data base as the foundation of your very own tooling around the
+analysis.
+
+## How does it work?
+
+Litestats reads the dump of the profiler and creates a normalized
+data base with tree tables:
+
+  * `functions`: contains each function (callers and callees) with
+    filename, line number and function name
+  * `stats` contains the statistics (primitive/total calls,
+    total/cumulative time) for all functions
+  * `calls` a caller-callee mapping
+
+While this provides an exact representation of the dump, those tables
+would be cumbersome to use. So litestats additionally creates three
+views resembling `pstats` `print_stats`, `print_callers` and
+`print_callees` functionality:
+
+  * `pstats`
+  * `callers`
+  * `callees`
 
 ## Install
 
