@@ -22,10 +22,10 @@ drop table if exists stats;
 create table stats(
     function integer,
 
-    cc integer,
-    nc integer,
-    tt float,
-    ct float,
+    cc integer,   -- primitive calls (i.e. non-recursive)
+    nc integer,   -- number of calls
+    tt float,     -- total time (excluding calls to sub-functions)
+    ct float,     -- cumulative time spent (including sub-functions)
 
     foreign key(function) references functions(id)
 );
