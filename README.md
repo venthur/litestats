@@ -1,3 +1,15 @@
+# Litestats
+
+
+## Install
+
+Litestats has **no requirements** other than Python itself:
+
+```bash
+$ pip install litestats
+```
+
+
 ## Usage
 
 ```bash
