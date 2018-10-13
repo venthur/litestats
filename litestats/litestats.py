@@ -39,6 +39,8 @@ create table calls(
     foreign key(callee) references functions(id)
 );
 
+-- create pstats view that emulates the python pstats output
+
 drop view if exists pstats;
 create view pstats as
 select
@@ -53,7 +55,54 @@ select
     f.filename || ':' || f.line || '(' || f.function || ')' as 'filename:lineno(function)'
 from stats as s
 join functions as f
-on s.function = f.id
+on s.function = f.id;
+
+-- create callers view that emulates the python pstats/callers output
+
+drop view if exists callers;
+create view callers as
+select
+    f.filename || ':' || f.line || '(' || f.function || ')' as function,
+    case
+        when s.nc = s.cc then s.nc
+        else s.nc || '/' || s.cc
+    end as ncalls,
+    s.tt as tottime,
+    s.ct as cumtime,
+    f2.filename || ':' || f2.line || '(' || f2.function || ')' as called_by
+
+from functions as f
+left outer join calls as c
+on f.id = c.callee
+left outer join functions as f2
+on c.caller = f2.id
+left outer join stats as s
+on f2.id = s.function;
+
+-- create callees view that emulates the python pstats/callees output
+
+drop view if exists callees;
+create view callees as
+select
+    f.filename || ':' || f.line || '(' || f.function || ')' as function,
+    case
+        when s.nc = s.cc then s.nc
+        else s.nc || '/' || s.cc
+    end as ncalls,
+    s.tt as tottime,
+    s.ct as cumtime,
+    f2.filename || ':' || f2.line || '(' || f2.function || ')' as called
+from functions as f
+left outer join calls as c
+on f.id = c.caller
+
+left outer join functions as f2
+on c.callee = f2.id
+
+left outer join stats as s
+on f.id = s.function;
+
+
 """
 
 
