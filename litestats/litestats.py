@@ -167,9 +167,3 @@ def main(statsfile, outfile):
             insert_func(conn, c)
             insert_call(conn, c, func)
     conn.commit()
-
-
-if __name__ == '__main__':
-    statsfile = 'profile.profile3'
-    outfile = statsfile + '.sqlite'
-    main(statsfile, outfile)
