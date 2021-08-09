@@ -17,14 +17,13 @@ setup(
     author='Bastian Venthur',
     author_email='mail@venthur.de',
     url='https://github.com/venthur/litestats',
-    python_requires='>=3',
-    extras_require={
-      'dev': [
-          'pytest',
-          'pytest-cov',
-          'flake8',
-      ]
+    project_urls={
+        # 'Documentation': 'https://litestats.readthedocs.io/',
+        'Source': 'https://github.com/venthur/litestats',
+        'Changelog':
+            'https://github.com/venthur/litestats/blob/master/CHANGELOG.md',
     },
+    python_requires='>=3.6',
     packages=['litestats'],
     entry_points={
         'console_scripts': [
